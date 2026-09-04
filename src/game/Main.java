@@ -93,7 +93,7 @@ public class Main extends Application{
 	optionsFenster.setLayoutY((760 - 600) / 2.0);
 
 	// OptionsMenüPunkte erstellen:
-	Button optionsMenuePunkt1 = new Button("Spiel Optionen:");
+	Button optionsMenuePunkt1 = new Button("Spiel Optionen");
 	Button optionsMenuePunkt2 = new Button("Grafik Optionen");
 	Button optionsMenuePunkt3 = new Button("Sound Optionen");
 	Button optionsMenuePunkt4 = new Button("Zurück");

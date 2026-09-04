@@ -93,10 +93,10 @@ public class Main extends Application{
 	optionsFenster.setLayoutY((760 - 600) / 2.0);
 
 	// OptionsMenüPunkte erstellen:
-	Button optionsMenuePunkt1 = new Button("Option 1");
-	Button optionsMenuePunkt2 = new Button("Option 2");
-	Button optionsMenuePunkt3 = new Button("Option 3");
-	Button optionsMenuePunkt4 = new Button("Option 4");
+	Button optionsMenuePunkt1 = new Button("Spiel Optionen:");
+	Button optionsMenuePunkt2 = new Button("Grafik Optionen");
+	Button optionsMenuePunkt3 = new Button("Sound Optionen");
+	Button optionsMenuePunkt4 = new Button("Zurück");
 
 	// Button Größe:
 	optionsMenuePunkt1.setPrefWidth(200);
@@ -260,8 +260,16 @@ public class Main extends Application{
 	// Option 3:
 //	optionsMenuePunkt3.setOnAction();
 	
-	// Option 4:
-//	optionsMenuePunkt4.setOnAction();
+	// Optionen 4 -> zurück:
+	optionsMenuePunkt4.setOnAction(optionenSchliessen -> {
+	    optionsFenster.setVisible(false);
+
+	    if (spielFenster.isVisible()) {
+	        pauseMenue.setVisible(true);
+	    } else {
+	        hauptMenue.setVisible(true);
+	    }
+	});
 
 //-   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
 	

@@ -36,7 +36,7 @@ public class Main extends Application{
 
 //-   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
 
-	// HauotMenü -> Menüauswahl erstellen:
+	// HauptMenü -> Menüauswahl erstellen:
 	// VertikalBox:			  (20) -> Abstand zwischen den Buttons
 	VBox hauptMenue = new VBox(20);
 	hauptMenue.setPrefSize(1280, 760);
@@ -224,9 +224,9 @@ public class Main extends Application{
 	                                                                                                                      
 
 	
-// ============================================================== \\
-// ================== startMenueAuswahlFenster ================== \\
-// ============================================================== \\
+// ======================================================= \\
+// ================== hauptMenueFenster ================== \\
+// ======================================================= \\
 	
 	// Spiel starten:
 	startBtn.setOnAction(ereignisStarMenueStartSpiel -> {
@@ -252,21 +252,21 @@ public class Main extends Application{
 // ============================================================== \\
 		
 	// Option 1:
-//	spielOptionsMenuePunkt1.setOnAction();
+//	optionsMenuePunkt1.setOnAction();
 	
 	// Option 2:
-//	spielOptionsMenuePunkt2.setOnAction();
+//	optionsMenuePunkt2.setOnAction();
 	
 	// Option 3:
-//	spielOptionsMenuePunkt3.setOnAction();
+//	optionsMenuePunkt3.setOnAction();
 	
 	// Option 4:
-//	spielOptionsMenuePunkt4.setOnAction();
+//	optionsMenuePunkt4.setOnAction();
 
 //-   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
 	
 // ================================================================= \\
-// ======================= spielMenueFenster ======================= \\
+// =========================== pauseMenü =========================== \\
 // ================================================================= \\
 		
 	// Fortsetzen:

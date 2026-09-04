@@ -29,19 +29,19 @@ public class Main extends Application{
 		                                                                                   
 //-   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
 
-	// HauptContainer: -> hier wird die wird die komplette Nutzeroberfläche geregelt 
+	// HauptContainer: -> hier wird die komplette Nutzeroberfläche geregelt 
 	Pane hauptContainer = new Pane();
 	// Scene ist der Inhalt, der innerhalb der Stage angezeigt wird
 	Scene scene = new Scene(hauptContainer, 1280, 760);
 
 //-   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
 
-	// Menüauswahl erstellen:
-	// VertikalBox:						(20) -> Abstand zwischen den Buttons
-	VBox startMenueAuswahlFenster = new VBox(20);
-	startMenueAuswahlFenster.setPrefSize(1280, 760);
-	startMenueAuswahlFenster.setAlignment(Pos.CENTER);
-	startMenueAuswahlFenster.setStyle("-fx-border-color: black; " +
+	// HauotMenü -> Menüauswahl erstellen:
+	// VertikalBox:			  (20) -> Abstand zwischen den Buttons
+	VBox hauptMenue = new VBox(20);
+	hauptMenue.setPrefSize(1280, 760);
+	hauptMenue.setAlignment(Pos.CENTER);
+	hauptMenue.setStyle("-fx-border-color: black; " +
 									  "-fx-border-width: 2; " 	+
 									  "-fx-background-color: green;"
 									  );
@@ -61,8 +61,8 @@ public class Main extends Application{
 	exitBtn.setPrefWidth(200);
 	exitBtn.setPrefHeight(20);
 
-	// Buttons der startMenueAuswahlFenster (VertikalBox) hinzufügen:
-	startMenueAuswahlFenster.getChildren().addAll(startBtn, optionBtn, exitBtn);
+	// Buttons dem Hauptmenü (VertikalBox) hinzufügen:
+	hauptMenue.getChildren().addAll(startBtn, optionBtn, exitBtn);
 
 //-   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
 
@@ -150,7 +150,7 @@ public class Main extends Application{
 	spielOptionsMenuePunkt4.setPrefWidth(200);
 	spielOptionsMenuePunkt4.setPrefHeight(20);
 	
-	// Buttons dem spielMenueFenster hinzufügen
+	// Buttons dem pauseMenue hinzufügen
 	pauseMenue.getChildren().addAll(spielOptionsMenuePunkt1, spielOptionsMenuePunkt2, spielOptionsMenuePunkt3, spielOptionsMenuePunkt4);
 	
 	
@@ -158,7 +158,7 @@ public class Main extends Application{
 
 	// alle Fenster/Boxen dem hauptContainer übergeben:
 	hauptContainer.getChildren().addAll(
-		startMenueAuswahlFenster, 
+		hauptMenue, 
 		spielFenster, 
 		optionsFenster,
 		pauseMenue
@@ -197,7 +197,7 @@ public class Main extends Application{
 	                
 	            // zurück ins Hauptmenü:
 	            } else {
-	                startMenueAuswahlFenster.setVisible(true);
+	                hauptMenue.setVisible(true);
 	            }
 				
 	        // PauseMenü schließen -> zurück ins Spiel:
@@ -230,7 +230,7 @@ public class Main extends Application{
 	
 	// Spiel starten:
 	startBtn.setOnAction(ereignisStarMenueStartSpiel -> {
-		startMenueAuswahlFenster.setVisible(false);
+		hauptMenue.setVisible(false);
 		spielFenster.setVisible(true);
 	});
 	
@@ -274,11 +274,11 @@ public class Main extends Application{
 		pauseMenue.setVisible(false);
 	});
 	
-	// StartMenü:
+	// Hauptmenü:
 	spielOptionsMenuePunkt2.setOnAction(zurueckZumHauptmenue -> {
 		spielFenster.setVisible(false);
 		pauseMenue.setVisible(false);
-		startMenueAuswahlFenster.setVisible(true);
+		hauptMenue.setVisible(true);
 	});
 	
 	// Optionen:

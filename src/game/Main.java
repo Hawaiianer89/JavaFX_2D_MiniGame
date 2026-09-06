@@ -185,26 +185,24 @@ public class Main extends Application{
 	scene.setOnKeyPressed(tastenDruckEscape -> {
 		if (tastenDruckEscape.getCode() == KeyCode.ESCAPE) {
 			
-			// OptionsFenster:
+			// 1: Wenn OptionsFenster offen -> OptionsFenster schließen:
 	        if (optionsFenster.isVisible()) {
-	    
-	            // Optionen schließen:
 	            optionsFenster.setVisible(false);
 	            
-	            // zurück ins Pause-Menü:
+	            // Wenn OptionsFenster im PauseMenü offen -> schließen -> zurück zum PasueMenü:
 	            if (spielFenster.isVisible()) {
 	                pauseMenue.setVisible(true); 
 	                
-	            // zurück ins Hauptmenü:
+	            // Wenn OptionsFenster im Hauptmenü geöffnet -> zurück ins Hauptmenü:
 	            } else {
 	                hauptMenue.setVisible(true);
 	            }
 				
-	        // PauseMenü schließen -> zurück ins Spiel:
+	        // 2. Wenn PauseMenü offen -> PauseMenü schließen -> zurück ins Spiel:
 	        } else if (spielFenster.isVisible() && pauseMenue.isVisible()) {
 	            pauseMenue.setVisible(false);
 
-	        // Pause-Menü öffnen:
+	        // 3. Wenn im Spiel -> PauseMenü noch zu -> Menü frisch öffnen:
 	        } else if (spielFenster.isVisible()) {
 	            pauseMenue.setVisible(true);
 	        }

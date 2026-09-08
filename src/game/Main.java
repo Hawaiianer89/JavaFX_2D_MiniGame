@@ -1,4 +1,5 @@
 
+
 package game;
 
 
@@ -9,7 +10,6 @@ import javafx.stage.Stage;						// HauptFenster,		eigentliches Anwendungsfenster
 import javafx.scene.control.Button;				// Schaltfläche,		klickbares BedienElement für Interaktionen
 import javafx.application.Application;			// Basisklasse,			Grundgerüst für JavaFX Anwenudngen
 import javafx.geometry.Pos;						// Ausrichtung,			Definiert vertikale + horizontale Positionierung von Elementen (zB. CENTER oder TOP_LEFT)
-import javafx.scene.input.KeyCode;				// TastenEingabe,		Enum für physische Tasten zur Erkennung von Tastatureingaben   (zB. ENTER, SPACE)
 
 
 public class Main extends Application{
@@ -29,19 +29,19 @@ public class Main extends Application{
 		                                                                                   
 //-   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
 
-	// HauptContainer: -> hier wird die wird die komplette Nutzeroberfläche geregelt 
+	// Übergeordneter Container für Menüs und Spielfenster:
 	Pane hauptContainer = new Pane();
 	// Scene ist der Inhalt, der innerhalb der Stage angezeigt wird
 	Scene scene = new Scene(hauptContainer, 1280, 760);
 
 //-   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
 
-	// Menüauswahl erstellen:
-	// VertikalBox:						(20) -> Abstand zwischen den Buttons
-	VBox startMenueAuswahlFenster = new VBox(20);
-	startMenueAuswahlFenster.setPrefSize(1280, 760);
-	startMenueAuswahlFenster.setAlignment(Pos.CENTER);
-	startMenueAuswahlFenster.setStyle("-fx-border-color: black; " +
+	// HauptMenü -> Menüauswahl erstellen:
+	// VertikalBox:			  (20) -> Abstand zwischen den Buttons
+	VBox hauptMenue = new VBox(20);
+	hauptMenue.setPrefSize(1280, 760);
+	hauptMenue.setAlignment(Pos.CENTER);
+	hauptMenue.setStyle("-fx-border-color: black; " +
 									  "-fx-border-width: 2; " 	+
 									  "-fx-background-color: green;"
 									  );
@@ -61,12 +61,16 @@ public class Main extends Application{
 	exitBtn.setPrefWidth(200);
 	exitBtn.setPrefHeight(20);
 
-	// Buttons der startMenueAuswahlFenster (VertikalBox) hinzufügen:
-	startMenueAuswahlFenster.getChildren().addAll(startBtn, optionBtn, exitBtn);
+	// Buttons dem Hauptmenü (VertikalBox) hinzufügen:
+	hauptMenue.getChildren().addAll(
+			startBtn, 
+			optionBtn, 
+			exitBtn
+		);
 
 //-   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
 
-	// das eigentliche Spiel"fenster" erstellen:
+	// das eigentliche SpielFenster erstellen:
 	Pane spielFenster = new Pane();
 	spielFenster.setPrefSize(1280, 760);
 	spielFenster.setVisible(false);
@@ -89,14 +93,15 @@ public class Main extends Application{
 							);
 	
 	// Position so berechnet, dass die 800x600 Box mittig im 1280x760 hauptContainer sitzt:
+	// 1280 - 800 = 480 / 2 weil Abstand links und rechts / oben und unten
 	optionsFenster.setLayoutX((1280 - 800) / 2.0);
 	optionsFenster.setLayoutY((760 - 600) / 2.0);
 
 	// OptionsMenüPunkte erstellen:
-	Button optionsMenuePunkt1 = new Button("Option 1");
-	Button optionsMenuePunkt2 = new Button("Option 2");
-	Button optionsMenuePunkt3 = new Button("Option 3");
-	Button optionsMenuePunkt4 = new Button("Option 4");
+	Button optionsMenuePunkt1 = new Button("Spiel Optionen");
+	Button optionsMenuePunkt2 = new Button("Grafik Optionen");
+	Button optionsMenuePunkt3 = new Button("Sound Optionen");
+	Button optionsMenuePunkt4 = new Button("Zurück");
 
 	// Button Größe:
 	optionsMenuePunkt1.setPrefWidth(200);
@@ -112,7 +117,18 @@ public class Main extends Application{
 	optionsMenuePunkt4.setPrefHeight(20);
 
 	// Buttons der VertikalBox hinzufügen:
-	optionsFenster.getChildren().addAll(optionsMenuePunkt1, optionsMenuePunkt2, optionsMenuePunkt3, optionsMenuePunkt4);
+	optionsFenster.getChildren().addAll(
+			optionsMenuePunkt1, 
+			optionsMenuePunkt2, 
+			optionsMenuePunkt3, 
+			optionsMenuePunkt4
+		);
+	
+//-   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -	
+	
+	//SpielFigur erzeugen und einfügen:
+	SpielFigur meineFigur = new SpielFigur();
+	spielFenster.getChildren().add(meineFigur.spielFigur);
 
 //-   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
 
@@ -150,69 +166,37 @@ public class Main extends Application{
 	spielOptionsMenuePunkt4.setPrefWidth(200);
 	spielOptionsMenuePunkt4.setPrefHeight(20);
 	
-	// Buttons dem spielMenueFenster hinzufügen
-	pauseMenue.getChildren().addAll(spielOptionsMenuePunkt1, spielOptionsMenuePunkt2, spielOptionsMenuePunkt3, spielOptionsMenuePunkt4);
+	// Buttons dem pauseMenue hinzufügen
+	pauseMenue.getChildren().addAll(
+			spielOptionsMenuePunkt1,
+			spielOptionsMenuePunkt2, 
+			spielOptionsMenuePunkt3, 
+			spielOptionsMenuePunkt4
+		);
 	
 	
 //-   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
 
 	// alle Fenster/Boxen dem hauptContainer übergeben:
 	hauptContainer.getChildren().addAll(
-		startMenueAuswahlFenster, 
-		spielFenster, 
-		optionsFenster,
-		pauseMenue
-	);
+			hauptMenue, 
+			spielFenster, 
+			optionsFenster,
+			pauseMenue
+		);
 
-//=========================================================================================================================================
-		
-//	  _____         _        _              _____ _                   _            
-//	 |_   _|       | |      | |            |  ___(_)                 | |         _ 
-//	   | | __ _ ___| |_ __ _| |_ _   _ _ __| |__  _ _ __   __ _  __ _| |__   ___(_)
-//	   | |/ _` / __| __/ _` | __| | | | '__|  __|| | '_ \ / _` |/ _` | '_ \ / _ \  
-//	   | | (_| \__ \ || (_| | |_| |_| | |  | |___| | | | | (_| | (_| | |_) |  __/_ 
-//	   \_/\__,_|___/\__\__,_|\__|\__,_|_|  \____/|_|_| |_|\__, |\__,_|_.__/ \___(_)
-//	                                                       __/ |                   
-//	                                                      |___/                    
+//-   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
 	
-//-   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -	
-	
-	// Tastatureingabe auf Scene-Ebene, weil VBox/Pane selbst keinen Fokus bekommen können:
-	// -> nur einmalig registriert, nicht innerhalb eines Button-Handlers
-	// Lambda + Keycode 
-	
-	// Escape Taste:
-	scene.setOnKeyPressed(tastenDruckEscape -> {
-		if (tastenDruckEscape.getCode() == KeyCode.ESCAPE) {
-			
-			// OptionsFenster:
-	        if (optionsFenster.isVisible()) {
-	    
-	            // Optionen schließen:
-	            optionsFenster.setVisible(false);
-	            
-	            // zurück ins Pause-Menü:
-	            if (spielFenster.isVisible()) {
-	                pauseMenue.setVisible(true); 
-	                
-	            // zurück ins Hauptmenü:
-	            } else {
-	                startMenueAuswahlFenster.setVisible(true);
-	            }
-				
-	        // PauseMenü schließen -> zurück ins Spiel:
-	        } else if (spielFenster.isVisible() && pauseMenue.isVisible()) {
-	            pauseMenue.setVisible(false);
+	// Steuerung erzeugen -> übernimmt Bewegung + Escape-Menü-Logik (siehe Steuerung.java):
+	Steuerung steuerung = new Steuerung(
+			scene, 
+			meineFigur, 
+			hauptMenue, 
+			spielFenster, 
+			optionsFenster, 
+			pauseMenue
+		);
 
-	        // Pause-Menü öffnen:
-	        } else if (spielFenster.isVisible()) {
-	            pauseMenue.setVisible(true);
-	        }
-	    }
-	});
-
-	
-	
 //=========================================================================================================================================	
 
 //	______       _   _                    _   ___ _      _                                   _          _ _               
@@ -222,15 +206,15 @@ public class Main extends Application{
 //	| |_/ / |_| | |_| || (_) | | | |     | |\  \ | | (__|   <\__ \  \ V /  __/ | | (_| | |  | |_) |  __/ | ||  __/ | | |_ 
 //	\____/ \__,_|\__|\__\___/|_| |_|     \_| \_/_|_|\___|_|\_\___/   \_/ \___|_|  \__,_|_|  |_.__/ \___|_|\__\___|_| |_(_)
 	                                                                                                                      
-
+//-   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -	
 	
-// ============================================================== \\
-// ================== startMenueAuswahlFenster ================== \\
-// ============================================================== \\
+// ======================================================= \\
+// ================== hauptMenueFenster ================== \\
+// ======================================================= \\
 	
 	// Spiel starten:
 	startBtn.setOnAction(ereignisStarMenueStartSpiel -> {
-		startMenueAuswahlFenster.setVisible(false);
+		hauptMenue.setVisible(false);
 		spielFenster.setVisible(true);
 	});
 	
@@ -252,21 +236,29 @@ public class Main extends Application{
 // ============================================================== \\
 		
 	// Option 1:
-//	spielOptionsMenuePunkt1.setOnAction();
+//	optionsMenuePunkt1.setOnAction();
 	
 	// Option 2:
-//	spielOptionsMenuePunkt2.setOnAction();
+//	optionsMenuePunkt2.setOnAction();
 	
 	// Option 3:
-//	spielOptionsMenuePunkt3.setOnAction();
+//	optionsMenuePunkt3.setOnAction();
 	
-	// Option 4:
-//	spielOptionsMenuePunkt4.setOnAction();
+	// Optionen 4 -> zurück:
+	optionsMenuePunkt4.setOnAction(optionenSchliessen -> {
+	    optionsFenster.setVisible(false);
+
+	    if (spielFenster.isVisible()) {
+	        pauseMenue.setVisible(true);
+	    } else {
+	        hauptMenue.setVisible(true);
+	    }
+	});
 
 //-   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
 	
 // ================================================================= \\
-// ======================= spielMenueFenster ======================= \\
+// =========================== pauseMenü =========================== \\
 // ================================================================= \\
 		
 	// Fortsetzen:
@@ -274,11 +266,11 @@ public class Main extends Application{
 		pauseMenue.setVisible(false);
 	});
 	
-	// StartMenü:
+	// Hauptmenü:
 	spielOptionsMenuePunkt2.setOnAction(zurueckZumHauptmenue -> {
 		spielFenster.setVisible(false);
 		pauseMenue.setVisible(false);
-		startMenueAuswahlFenster.setVisible(true);
+		hauptMenue.setVisible(true);
 	});
 	
 	// Optionen:

@@ -12,35 +12,36 @@ import javafx.scene.layout.VBox;				// VertikalBox,			Ordnet Elemente untereinan
 
 public class Steuerung {
 
-	// Ein Konstruktor, ein Tastatur-Handler -> vereint Bewegung + Escape-Menü-Logik,
-	// damit sich nichts gegenseitig überschreibt (scene.setOnKeyPressed ist ein Setter!)
+	// Konstruktor -> bekommt alles, was für Bewegung + Menü-Logik gebraucht wird:
 	public Steuerung(
 		Scene scene, 
 		SpielFigur hauptProtagonist, 
 		VBox hauptMenue, 
 		Pane spielFenster, 
 		VBox optionsFenster, 
-		VBox pauseMenue
+		VBox pauseMenue,
+		Hinderniss hindernis
 	){
 
 //-   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
 		
-		// Lambda-Funktion
+		// ein setOnKeyPressed-Aufruf für ALLES (Bewegung + Escape)
+		//     setOnKeyPressed = Setter
 		scene.setOnKeyPressed(tastenDruck -> {
 
 			// Bewegung der Spielfigur WASD:
 			// erkennt welche Taste gedrückt wird (KeyCode):
 			if (tastenDruck.getCode() == KeyCode.W) {
-				hauptProtagonist.bewegeHoch();
+				hauptProtagonist.bewegeHoch(hindernis);
 
 			} else if (tastenDruck.getCode() == KeyCode.S) {
-				hauptProtagonist.bewegeRunter();
+				hauptProtagonist.bewegeRunter(hindernis);
 
 			} else if (tastenDruck.getCode() == KeyCode.A) {
-				hauptProtagonist.bewegeLinks();
+				hauptProtagonist.bewegeLinks(hindernis);
 
 			} else if (tastenDruck.getCode() == KeyCode.D) {
-				hauptProtagonist.bewegeRechts();
+				hauptProtagonist.bewegeRechts(hindernis);
 			}
 
 //-   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
@@ -73,3 +74,7 @@ public class Steuerung {
 		});
 	}
 }
+
+
+
+

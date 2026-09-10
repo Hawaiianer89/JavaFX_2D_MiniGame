@@ -6,6 +6,7 @@ package game;
 import javafx.scene.layout.Pane;				// LayoutFläche, 		BasisLayout zur Positionierung von GUI-Elementen über absolute Koordinaten (X/Y)
 import javafx.scene.Scene;						// Scene-Klasse,		für Fensterinhalt
 import javafx.scene.layout.VBox;				// VertikalBox,			Ordnet Elemente untereinander an
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;						// HauptFenster,		eigentliches Anwendungsfenster (Rahmen, minimieren, schließen,...)
 import javafx.scene.control.Button;				// Schaltfläche,		klickbares BedienElement für Interaktionen
 import javafx.application.Application;			// Basisklasse,			Grundgerüst für JavaFX Anwenudngen
@@ -124,12 +125,6 @@ public class Main extends Application{
 			optionsMenuePunkt4
 		);
 	
-//-   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -	
-	
-	//SpielFigur erzeugen und einfügen:
-	SpielFigur meineFigur = new SpielFigur();
-	spielFenster.getChildren().add(meineFigur.spielFigur);
-
 //-   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
 
 	// MenüFenster wenn im Game Escape gedrückt wird:
@@ -174,9 +169,46 @@ public class Main extends Application{
 			spielOptionsMenuePunkt4
 		);
 	
+//-   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -	
+	
+		//SpielFigur erzeugen und einfügen:
+		SpielFigur meineFigur = new SpielFigur();
+	
+//=========================================================================================================================================
+
+//	   _   _ _           _                 _                
+//	  | | | (_)_ __   __| | ___ _ __ _ __ (_)___ ___  ___ _ 
+//	  | |_| | | '_ \ / _` |/ _ \ '__| '_ \| / __/ __|/ _ (_)
+//	  |  _  | | | | | (_| |  __/ |  | | | | \__ \__ \  __/_ 
+//	  |_| |_|_|_| |_|\__,_|\___|_|  |_| |_|_|___/___/\___(_)
+	                                                        
+//-   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
+	
+	// neues Hidnerniss erstellen -> Konstruktor nutzen:
+	//								   X    Y   höhe breite	
+	Hinderniss mauer1 = new Hinderniss(100, 100, 50, 50, Color.RED);
+	
 	
 //-   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
 
+//=========================================================================================================================================
+	
+//	   _   _ _                          _            
+//	  (_) (_) |__   ___ _ __ __ _  __ _| |__   ___ _ 
+//	  | | | | '_ \ / _ \ '__/ _` |/ _` | '_ \ / _ (_)
+//	  | |_| | |_) |  __/ | | (_| | (_| | |_) |  __/_ 
+//	   \___/|_.__/ \___|_|  \__, |\__,_|_.__/ \___(_)
+//	                        |___/                    
+
+//-   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
+	
+	spielFenster.getChildren().addAll(
+			meineFigur.spielFigur,
+			mauer1.hinderniss
+			);
+
+//-   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
+	
 	// alle Fenster/Boxen dem hauptContainer übergeben:
 	hauptContainer.getChildren().addAll(
 			hauptMenue, 
@@ -184,19 +216,20 @@ public class Main extends Application{
 			optionsFenster,
 			pauseMenue
 		);
-
+		
 //-   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
 	
-	// Steuerung erzeugen -> übernimmt Bewegung + Escape-Menü-Logik (siehe Steuerung.java):
+// Steuerung erzeugen -> übernimmt Bewegung + Escape-Menü-Logik (siehe Steuerung.java):
 	Steuerung steuerung = new Steuerung(
 			scene, 
 			meineFigur, 
 			hauptMenue, 
 			spielFenster, 
 			optionsFenster, 
-			pauseMenue
+			pauseMenue,
+			mauer1
 		);
-
+	
 //=========================================================================================================================================	
 
 //	______       _   _                    _   ___ _      _                                   _          _ _               
@@ -301,3 +334,5 @@ public class Main extends Application{
 	}
 
 }
+
+
